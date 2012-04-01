@@ -31,4 +31,38 @@ File sockets can also be given specific file objects to use.
     'foo'
     >>> fsocket.recv(3)
     'bar'
+
+The socket can be shutdown.  The `how` argument controls whether the
+`in_file`, `out_file` or both are closed.
+
+    >>> in_file.closed
+    False
+    >>> out_file.closed
+    False
+
+    >>> import socket
+    >>> fsocket.shutdown(socket.SHUT_RD)
+    >>> in_file.closed
+    True
+    >>> out_file.closed
+    False
+
+    >>> fsocket.shutdown(socket.SHUT_WR)
+    >>> in_file.closed
+    True
+    >>> out_file.closed
+    True
+
+    >>> in_file = StringIO('bar')
+    >>> out_file = StringIO()
+    >>> fsocket = FileSocket(in_file, out_file)
+    >>> in_file.closed
+    False
+    >>> out_file.closed
+    False
+    >>> fsocket.shutdown(socket.SHUT_RDWR)
+    >>> in_file.closed
+    True
+    >>> out_file.closed
+    True
     
