@@ -76,9 +76,16 @@ doesn't necessarily close them.
     False
     >>> out_file.closed
     False
+    >>> fsocket.in_file is in_file
+    True
+    >>> fsocket.out_file is out_file
+    True
     >>> fsocket.close()
     >>> in_file.closed
     False
     >>> out_file.closed
     False
-
+    >>> hasattr(fsocket, 'in_file')
+    False
+    >>> hasattr(fsocket, 'out_file')
+    False
