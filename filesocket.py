@@ -23,7 +23,9 @@ class FileSocket(object):
     def shutdown(self, how):
         if how in (socket.SHUT_RD, socket.SHUT_RDWR):
             self.in_file.close()
-            del self.in_file
         if how in (socket.SHUT_WR, socket.SHUT_RDWR):
             self.out_file.close()
-            del self.out_file
+
+    def close(self):
+        del self.in_file
+        del self.out_file

@@ -65,4 +65,20 @@ The socket can be shutdown.  The `how` argument controls whether the
     True
     >>> out_file.closed
     True
-    
+
+The `close()` method just deletes the references to the files but
+doesn't necessarily close them.
+
+    >>> in_file = StringIO('bar')
+    >>> out_file = StringIO()
+    >>> fsocket = FileSocket(in_file, out_file)
+    >>> in_file.closed
+    False
+    >>> out_file.closed
+    False
+    >>> fsocket.close()
+    >>> in_file.closed
+    False
+    >>> out_file.closed
+    False
+
