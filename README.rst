@@ -124,3 +124,23 @@ The `fileno` method is only available if the specified file has a
     >>> fsocket = FileSocket(in_file, out_file, use_out_fileno=True)
     >>> hasattr(fsocket, 'fileno')
     False
+
+If the socket need not support the `flags` argument to `recv`,  a
+slight optimization may be achieved by using the underlying files'
+`read()` and `write()` methods directly for the file socket's `recv()`
+and `send()` methods.
+
+    >>> in_file = StringIO('bar')
+    >>> out_file = StringIO()
+    >>> fsocket = FileSocket(in_file, out_file, optimize=True)
+
+    >>> fsocket.recv.im_func is in_file.read.im_func
+    True
+    >>> fsocket.send.im_func is out_file.write.im_func
+    True
+
+    >>> fsocket.recv(3)
+    'bar'
+    >>> fsocket.send('foo')
+    >>> out_file.getvalue()
+    'foo'

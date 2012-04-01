@@ -11,7 +11,7 @@ import socket
 class FileSocket(object):
 
     def __init__(self, in_file=sys.stdin, out_file=sys.stdout,
-                 use_out_fileno=False):
+                 use_out_fileno=False, optimize=False):
         self.in_file = in_file
         self.out_file = out_file
 
@@ -20,6 +20,10 @@ class FileSocket(object):
             fileno_file = out_file
         if hasattr(fileno_file, 'fileno'):
             self.fileno = fileno_file.fileno
+
+        if optimize:
+            self.recv = in_file.read
+            self.send = out_file.write
 
     def recv(self, bufsize, flags=0):
         return self.in_file.read(bufsize)
