@@ -89,3 +89,38 @@ doesn't necessarily close them.
     False
     >>> hasattr(fsocket, 'out_file')
     False
+
+The `fileno()` method returns the file descriptor for the `in_file` by
+default.
+
+    >>> import tempfile
+    >>> in_file = tempfile.TemporaryFile()
+    >>> out_file = tempfile.TemporaryFile()
+    >>> fsocket = FileSocket(in_file, out_file)
+    >>> fsocket.fileno() == in_file.fileno()
+    True
+    >>> fsocket.fileno() == out_file.fileno()
+    False
+
+If the `use_out_fileno` argument is `True`, then the descriptor of
+the `out_file` will be returned instead.
+
+    >>> fsocket = FileSocket(in_file, out_file, use_out_fileno=True)
+    >>> fsocket.fileno() == in_file.fileno()
+    False
+    >>> fsocket.fileno() == out_file.fileno()
+    True
+
+The `fileno` method is only available if the specified file has a
+`fileno` attribute itself.
+
+    >>> in_file = StringIO('bar')
+    >>> out_file = StringIO()
+
+    >>> fsocket = FileSocket(in_file, out_file)
+    >>> hasattr(fsocket, 'fileno')
+    False
+
+    >>> fsocket = FileSocket(in_file, out_file, use_out_fileno=True)
+    >>> hasattr(fsocket, 'fileno')
+    False
