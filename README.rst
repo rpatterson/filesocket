@@ -9,12 +9,13 @@ written.
 Create a filesocket wrapper using the FileSocket class.
 
     >>> from filesocket import FileSocket
-    >>> socket = FileSocket()
+    >>> fsocket = FileSocket()
 
 By default, the socket uses `sys.stdin` for reading and `sys.stdout`
 for writing.
 
-    >>> socket.send('foo')
+    >>> fsocket.send('foo')
     foo
-    >>> socket.recv(0)
+    >>> fsocket.recv(0)
     ''
+
