@@ -42,4 +42,5 @@ class FileSocket(object):
 
     def close(self):
         del self.in_file
+        del self.recv
         del self.out_file
