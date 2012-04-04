@@ -16,7 +16,7 @@ By default, the socket uses `sys.stdin` for reading and `sys.stdout`
 for writing.
 
     >>> fsocket.send('foo')
-    foo
+    foo3
     >>> fsocket.recv(0)
     ''
 
@@ -28,6 +28,7 @@ File sockets can also be given specific file objects to use.
 
     >>> fsocket = FileSocket(in_file, out_file)
     >>> fsocket.send('foo')
+    3
     >>> out_file.getvalue()
     'foo'
     >>> fsocket.recv(3)
@@ -137,11 +138,10 @@ and `send()` methods.
 
     >>> fsocket.recv.im_func is in_file.read.im_func
     True
-    >>> fsocket.send.im_func is out_file.write.im_func
-    True
 
     >>> fsocket.recv(3)
     'bar'
     >>> fsocket.send('foo')
+    3
     >>> out_file.getvalue()
     'foo'

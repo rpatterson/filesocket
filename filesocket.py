@@ -30,13 +30,13 @@ class FileSocket(object):
 
         if optimize:
             self.recv = in_file.read
-            self.send = out_file.write
 
     def recv(self, bufsize, flags=0):
         return self.in_file.read(bufsize)
 
     def send(self, string):
-        return self.out_file.write(string)    
+        self.out_file.write(string)    
+        return len(string)
 
     def shutdown(self, how):
         if how in (socket.SHUT_RD, socket.SHUT_RDWR):
