@@ -12,7 +12,7 @@ import socket
 class FileSocket(object):
 
     def __init__(self, in_file=None, out_file=None,
-                 use_out_fileno=False, optimize=False):
+                 use_out_fileno=False):
         # Default to sys.stdin and sys.stdout unbuffered
         if in_file is None:
             in_file = os.fdopen(sys.stdin.fileno(), sys.stdin.mode, 0)
@@ -28,11 +28,7 @@ class FileSocket(object):
         if hasattr(fileno_file, 'fileno'):
             self.fileno = fileno_file.fileno
 
-        if optimize:
-            self.recv = in_file.read
-
-    def recv(self, bufsize, flags=0):
-        return self.in_file.read(bufsize)
+        self.recv = in_file.read
 
     def send(self, string):
         self.out_file.write(string)    
