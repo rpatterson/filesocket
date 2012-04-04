@@ -5,13 +5,20 @@ written.
 """
 
 import sys
+import os
 import socket
 
 
 class FileSocket(object):
 
-    def __init__(self, in_file=sys.stdin, out_file=sys.stdout,
+    def __init__(self, in_file=None, out_file=None,
                  use_out_fileno=False, optimize=False):
+        # Default to sys.stdin and sys.stdout unbuffered
+        if in_file is None:
+            in_file = os.fdopen(sys.stdin.fileno(), sys.stdin.mode, 0)
+        if out_file is None:
+            out_file = os.fdopen(sys.stdout.fileno(), sys.stdout.mode, 0)
+
         self.in_file = in_file
         self.out_file = out_file
 

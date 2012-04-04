@@ -8,8 +8,9 @@ written.
 
 Create a filesocket wrapper using the FileSocket class.
 
+    >>> import sys
     >>> from filesocket import FileSocket
-    >>> fsocket = FileSocket()
+    >>> fsocket = FileSocket(None, sys.stdout)
 
 By default, the socket uses `sys.stdin` for reading and `sys.stdout`
 for writing.
